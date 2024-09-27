@@ -1,0 +1,15 @@
+<select
+  id={{@id}}
+  class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+  {{on "change" this.handleChange}}
+>
+  {{#if @placeholder}}
+    <option value="">{{@placeholder}}</option>
+  {{/if}}
+
+  {{#each @options as |opt|}}
+    <option value={{opt}} selected={{eq opt @selected}}>
+      {{opt}}
+    </option>
+  {{/each}}
+</select>
