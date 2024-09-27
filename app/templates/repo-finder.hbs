@@ -36,27 +36,27 @@
   </form>
 
   {{#if (and this.repositories.length (not this.fetchRepositories.isRunning))}}
-    <div class="flex justify-between items-center my-2">
-      <span class="pb-0 text-sm text-gray-600">
-        Results:
-
-        {{this.repositories.length}}
-      </span>
-
-      <div>
-        <Select
-          @id="programming-language"
-          @options={{this.availableLanguages}}
-          @selected={{this.selectedLanguage}}
-          @placeholder="Select a programming language"
-          @onChange={{perform this.filterByLanguage}}
-        />
-      </div>
-    </div>
-
     {{#if this.filterByLanguage.isRunning}}
       <LoadingSpinner />
     {{else}}
+      <div class="flex justify-between items-center my-2">
+        <span class="pb-0 text-sm text-gray-600">
+          Results:
+
+          {{this.repositories.length}}
+        </span>
+
+        <div>
+          <Select
+            @id="programming-language"
+            @options={{this.availableLanguages}}
+            @selected={{this.selectedLanguage}}
+            @placeholder="Select a programming language"
+            @onChange={{perform this.filterByLanguage}}
+          />
+        </div>
+      </div>
+
       <RepoList @repositories={{this.repositories}} />
     {{/if}}
   {{/if}}
