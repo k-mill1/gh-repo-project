@@ -2,7 +2,7 @@ import Service from '@ember/service';
 
 export default class GithubApiService extends Service {
   GITHUB_API_BASE_URL = 'https://api.github.com';
-  PER_PAGE = 5;
+  PER_PAGE = 25;
 
   async getPublicAndPrivateRepos(orgName, token) {
     const url = `${
@@ -42,14 +42,23 @@ export default class GithubApiService extends Service {
       const response = await fetch(url, { headers });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        // Attempt to parse JSON, fallback to a generic error if it fails
+        const errorDetails = await response.json().catch(() => {
+          return { message: 'Unable to parse error response.' };
+        });
+
+        const errorMessages = errorDetails.errors
+          ? errorDetails.errors.map((err) => err.message).join(', ')
+          : errorDetails.message || 'An unknown error occurred';
+
+        throw new Error(errorMessages);
       }
 
       return await response.json();
     } catch (error) {
       console.error(error);
 
-      throw new Error('Failed to fetch');
+      throw new Error(error.message);
     }
   }
 }
