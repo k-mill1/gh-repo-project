@@ -49,7 +49,7 @@
     {{/if}}
   </div>
 
-  {{#if this.fetchData.isRunning}}
+  {{#if (or this.fetchData.isRunning this.filterByLanguage.isRunning)}}
     <div class="mt-4 flex justify-center">
       <div role="status" class="text-center">
         <svg
@@ -79,6 +79,24 @@
           Results:
           {{this.repositories.length}}
         </span>
+        <div>
+          <select
+            id="programming-language"
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {{on "change" (perform this.filterByLanguage)}}
+          >
+            <option value="">Select a programming language</option>
+
+            {{#each this.usedLanguages as |language|}}
+              <option
+                value={{language}}
+                selected={{eq language this.selectedLanguage}}
+              >
+                {{language}}
+              </option>
+            {{/each}}
+          </select>
+        </div>
       </div>
 
       <RepoList @repositories={{this.repositories}} />
