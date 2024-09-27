@@ -1,5 +1,7 @@
 <ul class="space-y-4 border-t border-gray-200">
   {{#each @repositories as |repo|}}
-    <RepoList::RepoItem @repo={{repo}} />
+    <li class="border-b border-gray-200 last:border-b-0 mt-0">
+      <RepoList::RepoItem @repo={{repo}} />
+    </li>
   {{/each}}
 </ul>

@@ -1,72 +1,75 @@
-<li class="border-b border-gray-200 last:border-b-0">
-  <div class="flex flex-col py-4">
-    <div class="flex items-center mb-2">
-      <a
-        href={{@repo.html_url}}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-lg font-semibold text-blue-600 hover:underline"
+<div class="flex flex-col py-4">
+  <div class="flex items-center mb-2">
+    <a
+      href={{@repo.html_url}}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-lg font-semibold text-blue-600 hover:underline"
+    >
+      {{@repo.name}}
+    </a>
+
+    {{#if @repo.private}}
+      <span
+        class="bg-gray-200 border border-gray-600 m-2 px-1 rounded-md text-gray-800 text-xs"
       >
-        {{@repo.name}}
-      </a>
-
-      {{#if @repo.private}}
-        <span
-          class="bg-gray-200 border border-gray-600 m-2 px-1 rounded-md text-gray-800 text-xs"
-        >
-          Private
-        </span>
-      {{else}}
-        <span
-          class="bg-gray-200 border border-gray-600 m-2 px-1 rounded-md text-gray-800 text-xs"
-        >
-          Public
-        </span>
-      {{/if}}
-    </div>
-
-    <div class="text-gray-700 text-sm mb-2 flex items-center">
-      {{#if @repo.language}}
-        <span class="mr-4 flex items-center">
-          <span
-            class="w-3 h-3 rounded-full mr-2"
-            style={{this.languageStyle}}
-          ></span>
-
-          {{@repo.language}}
-        </span>
-      {{/if}}
-
-      <button
-        type="button"
-        class="flex items-center focus:outline-none"
-        {{on "click" (fn this.toggleBranches @repo)}}
+        Private
+      </span>
+    {{else}}
+      <span
+        class="bg-gray-200 border border-gray-600 m-2 px-1 rounded-md text-gray-800 text-xs"
       >
-        <div>
-          {{! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. }}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            class="w-3 h-3"
-          >
-            <path
-              d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3l0 87.8c18.8-10.9 40.7-17.1 64-17.1l96 0c35.3 0 64-28.7 64-64l0-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3l0 6.7c0 70.7-57.3 128-128 128l-96 0c-35.3 0-64 28.7-64 64l0 6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3l0-6.7 0-198.7C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
-            />
-          </svg>
-        </div>
+        Public
+      </span>
+    {{/if}}
+  </div>
 
-        <span class="ml-1">{{@repo.branchesCount}}</span>
-      </button>
-    </div>
+  <div class="text-gray-700 text-sm mb-2 flex items-center">
+    {{#if @repo.language}}
+      <span class="mr-4 flex items-center">
+        <span
+          class="w-3 h-3 rounded-full mr-2"
+          style={{this.languageStyle}}
+        ></span>
 
-    {{#if this.showBranches}}
-      <ul class="mt-2 border-t border-gray-300 pt-2">
+        {{@repo.language}}
+      </span>
+    {{/if}}
+
+    <button
+      type="button"
+      class="flex items-center focus:outline-none text-gray-600 hover:text-gray-400 transition-colors duration-200"
+      {{on "click" (fn this.toggleBranches @repo)}}
+    >
+      <div>
+        {{! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. }}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+          class="w-3 h-3"
+          fill="currentColor"
+        >
+          <path
+            d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3l0 87.8c18.8-10.9 40.7-17.1 64-17.1l96 0c35.3 0 64-28.7 64-64l0-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3l0 6.7c0 70.7-57.3 128-128 128l-96 0c-35.3 0-64 28.7-64 64l0 6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3l0-6.7 0-198.7C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
+          />
+        </svg>
+      </div>
+
+      <span class="ml-1">{{@repo.branchesCount}}</span>
+    </button>
+  </div>
+
+  {{#if this.showBranches}}
+    <div class="mt-2 border-t border-gray-300 pt-2">
+      <h4 class="font-semibold text-gray-800 mb-2 text-sm">Branches:</h4>
+
+      <ul class="list-disc list-inside">
         {{#each @repo.branches as |branch|}}
           <li class="text-gray-600 text-sm py-1">
             {{branch.name}}
           </li>
         {{/each}}
       </ul>
-    {{/if}}
-  </div>
-</li>
+    </div>
+  {{/if}}
+</div>
